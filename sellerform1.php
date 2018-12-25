@@ -44,13 +44,12 @@ include 'loggedInCheck.php';
 	<style>
 .filterDiv {
   float: left;
-  border-radius: 30px;
-  background-color:#CD853F;
+  background-color: #2196F3;
   color: #ffffff;
   width: 100%;
-  line-height: 80px;
+  line-height: 100px;
   text-align: center;
-  margin: 30px;
+  margin: 2px;
   display: none;
 }
 
@@ -184,13 +183,13 @@ function validate() {
       <div><h3>Seller Enquiry Form</h3></div>
     						<?php
                 if ($_SESSION['category'] == 'sellerdb') {
-                  echo "<em> login_user = ". $_SESSION['login_user'] ." </em>";
+                  //echo "<em> login_user = ". $_SESSION['login_user'] ." </em>";
 
-                  echo "<em> SID = ".$_SESSION['SID'] . "</em>";
+                //  echo "<em> SID = ".$_SESSION['SID'] . "</em>";
 
                   echo "<div class='row'>
                           <div class='col-md-6'>
-                            Name: ".$_SESSION['fname']." ".$_SESSION['lname']."
+                            Name: ".ucwords($_SESSION['fname'])." ".ucwords($_SESSION['lname'])."
                           </div>
                           <div class='col-md-6'>
                             Contact Number: ".$_SESSION['mobile']."
@@ -209,47 +208,27 @@ function validate() {
                 ?>
               </div>
                <hr>
-             <form name="sellerForm" action="sellerEnqdb.php" onsubmit="return(validate())" method="post" style="padding:10px;margin-left:30px;margin-right:30px;">
-               <div class="row form-group">
-
-                 <div class="row form-group" style="text-align:center;">
-                   <div class="col-md-6 col-md-offset-3" >
-                   <select name="farming_type" class="form-control"  required>
-                     <option selected disabled="disabled">Farming type</option>
-                       <option value="Natural Farming(ZBNF)">Natural Farming(ZBNF)</option>
-                       <option value="Group Organic Certified">Group Organic Certified</option>
-                       <option value="Organic PGS">Organic PGS</option>
-                       <option value="Organic(Self Certified)">Organic(Self Certified)</option>
-                     <option value="Organic(Not Certified)">Organic(Not Certified)</option>
-                     <option value="conventional">Conventional</option>
-
-                   </select>
-                   </div>
-
-                 </div>
-                 </div>
-				 </form>
-                 <hr>
 
 
-<div style="font-size:55px;">Farming type</div>
+
+<div style="font-size:40px;" align="center">Choose Farming type</div>
 
 <div id="myBtnContainer">
-	 <label style="font-size:25px;"><input class="btn active" onclick="filterSelection('all')" type="radio" name="fl-colour"  /> Show all</label><br>
-	 <label style="font-size:25px;"><input class="btn active" onclick="filterSelection('natural')" type="radio" name="fl-colour"/> Natural Farming(ZBNF)</label><br>
-	 <label style="font-size:25px;"><input class="btn active" onclick="filterSelection('group')" type="radio" name="fl-colour"  />Group Organic Certified</label><br>
-	 <label style="font-size:25px;"><input class="btn active" onclick="filterSelection('pgs')" type="radio" name="fl-colour"  /> Organic PGS</label><br>
-	 <label style="font-size:25px;"><input class="btn active" onclick="filterSelection('self')" type="radio" name="fl-colour" /> Organic(Self Certified</label><br>
-	 <label style="font-size:25px;"><input class="btn active" onclick="filterSelection('organic')" type="radio" name="fl-colour"  />Organic(Not Certified)</label><br>
-	 <label style="font-size:25px;"><input class="btn active" onclick="filterSelection('conventional')" type="radio" name="fl-colour"  /> Conventional</label><br>
+	 <label style="font-size:15px;"><input class="btn active" onclick="filterSelection('all')" type="radio" name="fl-colour"  /> Show all</label><br>
+	 <label style="font-size:15px;"><input class="btn active" onclick="filterSelection('natural')" type="radio" name="fl-colour"/> Natural Farming(ZBNF)</label><br>
+	 <label style="font-size:15px;"><input class="btn active" onclick="filterSelection('group')" type="radio" name="fl-colour"  />Group Organic Certified</label><br>
+	 <label style="font-size:15px;"><input class="btn active" onclick="filterSelection('pgs')" type="radio" name="fl-colour"  /> Organic PGS</label><br>
+	 <label style="font-size:15px;"><input class="btn active" onclick="filterSelection('self')" type="radio" name="fl-colour" /> Organic(Self Certified</label><br>
+	 <label style="font-size:15px;"><input class="btn active" onclick="filterSelection('organic')" type="radio" name="fl-colour"  />Organic(Not Certified)</label><br>
+	 <label style="font-size:15px;"><input class="btn active" onclick="filterSelection('conventional')" type="radio" name="fl-colour"  /> Conventional</label><br>
 
 </div>
 
 <div class="container">
   <?php
                 include 'db_connect.php';
-                $sql_b = "SELECT firstName
-                FROM buyerdb";
+                $sql_b = "SELECT b.uniqueid
+                FROM buyerdb b ";
                 $result_b = mysqli_query($connection,$sql_b);
                 $c=0;
                 $c=@mysqli_num_rows($result_b);
@@ -260,27 +239,10 @@ function validate() {
                   while($row = $result_b->fetch_assoc())
                   {
 					  /*Akshay:design that particular format in the division below  and remaining is copy paste*/
-                    echo "  <div class='filterDiv row'>
-							<div class='col-md-12'> ".$row['firstName']."</div>
-							<div class='row'>
-							<div class='col-md-2'> UNIT</div>
+                    echo "  <div class='filterDiv'>
+                             <div> ".$row['uniqueid']."</div>
+                             <button style='color:black;' onclick=''>QUOTE</button>
 
-                             <div class='col-md-2'> DURATION</div>
-                             <div class='col-md-2'> QUANTITY</div>
-                             <div class='col-md-2'></div>
-
-							 </div>
-
-                            <div class='row'>
-							<div class='col-md-2'> ".$row['firstName']."</div>
-                             <div class='col-md-2'> ".$row['firstName']."</div>
-                             <div class='col-md-2'> ".$row['firstName']."</div>
-                             <div class='col-md-4'>
-                             <input style='float:right' type='text'  name='price' placeholder='Enter your price' value='' required>
-                             <i class='fa fa-inr'></i>
-                             </div>
-                              <button class='col-md-2 btn btn-primary' style='color:black;float:none;' onclick=''>QUOTE<i class='fa fa-inr'></i></button>
-							 </div>
 							</div>
                           ";
                    }
@@ -311,6 +273,132 @@ function validate() {
                    }
                  }
   						 ?>
+               <?php
+                             include 'db_connect.php';
+                             $sql_b = "SELECT bp.item, bp.unit, bp.duration, b.uniqueid
+                             FROM buyerdb b, buyerproduct bp
+                             WHERE bp.BID=b.BID AND ftype='Group Organic Certified'";										/*Roopali and Sankalp sql logic:select item ,unit ,duration from buyerproduct table AND
+             																	select uniqueid(manually enter the values) from buyerdb table through BID WHERE ftype="Natural Farming"*/
+                             $result_b = mysqli_query($connection,$sql_b);
+                             $c=0;
+                             $c=@mysqli_num_rows($result_b);
+
+
+                             if($c>0)
+                             {
+                               while($row = $result_b->fetch_assoc())
+                               {
+             					  /*This particular class below in div(natural) differentiates between farming type*/
+                                 echo "  <div class='filterDiv group'>
+                                         <div> ".$row['uniqueid']."</div>
+                                          <button style='color:black;' onclick=''>QUOTE</button>
+
+             							</div>
+                                       ";
+                                }
+                              }
+               						 ?>
+                           <?php
+                                         include 'db_connect.php';
+                                         $sql_b = "SELECT bp.item, bp.unit, bp.duration, b.uniqueid
+                                         FROM buyerdb b, buyerproduct bp
+                                         WHERE bp.BID=b.BID AND ftype='Organic PGS'";										/*Roopali and Sankalp sql logic:select item ,unit ,duration from buyerproduct table AND
+                         																	select uniqueid(manually enter the values) from buyerdb table through BID WHERE ftype="Natural Farming"*/
+                                         $result_b = mysqli_query($connection,$sql_b);
+                                         $c=0;
+                                         $c=@mysqli_num_rows($result_b);
+
+
+                                         if($c>0)
+                                         {
+                                           while($row = $result_b->fetch_assoc())
+                                           {
+                         					  /*This particular class below in div(natural) differentiates between farming type*/
+                                             echo "  <div class='filterDiv pgs'>
+                                                     <div> ".$row['uniqueid']."</div>
+                                                      <button style='color:black;' onclick=''>QUOTE</button>
+
+                         							</div>
+                                                   ";
+                                            }
+                                          }
+                           						 ?>
+                                       <?php
+                                                     include 'db_connect.php';
+                                                     $sql_b = "SELECT bp.item, bp.unit, bp.duration, b.uniqueid
+                                                     FROM buyerdb b, buyerproduct bp
+                                                     WHERE bp.BID=b.BID AND ftype='Organic(Self Certified)'";										/*Roopali and Sankalp sql logic:select item ,unit ,duration from buyerproduct table AND
+                                     																	select uniqueid(manually enter the values) from buyerdb table through BID WHERE ftype="Natural Farming"*/
+                                                     $result_b = mysqli_query($connection,$sql_b);
+                                                     $c=0;
+                                                     $c=@mysqli_num_rows($result_b);
+
+
+                                                     if($c>0)
+                                                     {
+                                                       while($row = $result_b->fetch_assoc())
+                                                       {
+                                     					  /*This particular class below in div(natural) differentiates between farming type*/
+                                                         echo "  <div class='filterDiv self'>
+                                                                 <div> ".$row['uniqueid']."</div>
+                                                                  <button style='color:black;' onclick=''>QUOTE</button>
+
+                                     							</div>
+                                                               ";
+                                                        }
+                                                      }
+                                       						 ?>
+                                                   <?php
+                                                                 include 'db_connect.php';
+                                                                 $sql_b = "SELECT bp.item, bp.unit, bp.duration, b.uniqueid
+                                                                 FROM buyerdb b, buyerproduct bp
+                                                                 WHERE bp.BID=b.BID AND ftype='Organic(Not Certified)'";										/*Roopali and Sankalp sql logic:select item ,unit ,duration from buyerproduct table AND
+                                                 																	select uniqueid(manually enter the values) from buyerdb table through BID WHERE ftype="Natural Farming"*/
+                                                                 $result_b = mysqli_query($connection,$sql_b);
+                                                                 $c=0;
+                                                                 $c=@mysqli_num_rows($result_b);
+
+
+                                                                 if($c>0)
+                                                                 {
+                                                                   while($row = $result_b->fetch_assoc())
+                                                                   {
+                                                 					  /*This particular class below in div(natural) differentiates between farming type*/
+                                                                     echo "  <div class='filterDiv organic'>
+                                                                             <div> ".$row['uniqueid']."</div>
+                                                                              <button style='color:black;' onclick=''>QUOTE</button>
+
+                                                 							</div>
+                                                                           ";
+                                                                    }
+                                                                  }
+                                                   						 ?>
+
+                                                               <?php
+                                                                             include 'db_connect.php';
+                                                                             $sql_b = "SELECT bp.item, bp.unit, bp.duration, b.uniqueid
+                                                                             FROM buyerdb b, buyerproduct bp
+                                                                             WHERE bp.BID=b.BID AND ftype='conventional'";										/*Roopali and Sankalp sql logic:select item ,unit ,duration from buyerproduct table AND
+                                                                                              select uniqueid(manually enter the values) from buyerdb table through BID WHERE ftype="Natural Farming"*/
+                                                                             $result_b = mysqli_query($connection,$sql_b);
+                                                                             $c=0;
+                                                                             $c=@mysqli_num_rows($result_b);
+
+
+                                                                             if($c>0)
+                                                                             {
+                                                                               while($row = $result_b->fetch_assoc())
+                                                                               {
+                                                                        /*This particular class below in div(natural) differentiates between farming type*/
+                                                                                 echo "  <div class='filterDiv conventional'>
+                                                                                         <div> ".$row['uniqueid']."</div>
+                                                                                          <button style='color:black;' onclick=''>QUOTE</button>
+
+                                                                          </div>
+                                                                                       ";
+                                                                                }
+                                                                              }
+                                                                           ?>
 
 
 </div>
