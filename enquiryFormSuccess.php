@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+include 'trans_id.php';
+session_start();
+?>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -25,12 +29,10 @@ body {
 
 <div style="width:65%;margin-top:100px;" class="shadow p-3 mb-5 bg-white rounded container" style="margin-bottom:50px;">
 
-<img height="160" width="160" src="flag.jpg" alt="Indian Flag" style="float:left">
- <center><h1>Your details have been successfully recorded</h1></center>
+ <center><h1>Your enquiry has been been successfully recorded</h1></center>
 <center >
   <img  src="checked.png" alt="" height="100">
-  <h3 style="margin-left:-20px">Welcome to Krishiyog</h3>
-  <h6>Today, on the occasion of India’s 72nd Independence Day Celebration 2018 we dedicate to you India’s first mobile app Platform “Krishiyog” for buying and selling 100% natural farm produce and products directly from farmers, food processors and value adders who use natural methods.</h6>
+  <h4>Transaction id:<?php echo $_SESSION['tid']; ?></h4>
   <h6>Download our app</h6>
 </center>
   <center>
